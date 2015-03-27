@@ -1,0 +1,8 @@
+body > div.wrapper > div.container.main_container > div.content > div.content-body > table.sortable > tbody > tr:nth-child(2) > td:nth-child(4) > a {
+	position: absolute;
+  	top: 130px;
+  	left: 45px;
+}
+
+
+	

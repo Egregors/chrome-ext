@@ -1,0 +1,17 @@
+{
+    "name": "Milinv fix",
+    "version": "0.1",
+    "description": "Income checking helper",
+    "permissions": [
+    "activeTab"
+  ],
+
+    "content_scripts":[
+        {
+            "matches":["https://milinv.ru/Fuel/FuelMovement/IncomeDetail/*"],
+            "css":["my_css.css"]
+        }
+    ],
+    
+    "manifest_version": 2
+}

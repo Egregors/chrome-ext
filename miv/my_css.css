@@ -1,0 +1,12 @@
+/*Изменяем цвет измененных ячеек*/
+input[type="text"].changed {
+	background-color: #57BED0;
+}
+
+input[type="text"].ok {
+	background-color: #89E2A2;
+}
+
+input[type="text"].fail {
+	background-color: #EA5959;
+}
