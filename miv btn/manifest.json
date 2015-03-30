@@ -9,6 +9,7 @@
     "content_scripts":[
         {
             "matches":["https://milinv.ru/Fuel/FuelMovement/IncomeDetail/*"],
+            "js":["jquery.js", "script.js"],
             "css":["my_css.css"]
         }
     ],
