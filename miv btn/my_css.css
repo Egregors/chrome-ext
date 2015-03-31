@@ -1,5 +1,11 @@
 .go-to-top {
 	position: absolute;
   	top: 130px;
-  	left: 45px;
+  	right : 306px;
+}
+
+.go-to-top-next {
+	position: absolute;
+  	right: 73px;
+    top: 122px;
 }

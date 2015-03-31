@@ -37,7 +37,47 @@ $(function() {
     // check fuel quality
     check_fuel_quality();
 
+    // check driver name
+    check_driver_name();
+
 });
+
+function check_driver_name () {
+    var re = /[А-Я][а-я]+ [А-Я].[А-Я]./g
+    driver = $('#Driver').val();
+    if (re.test(driver)) {
+        $('#Driver').addClass('ok');
+        $('#Driver').after(' -- OK');
+    } else if (driver.split(".").length - 1 == 2) {
+        // try to fix
+        // must include 2 dots
+        clear = driver.replace(/ /g,'');
+        log(clear);
+
+        s = clear.split(".");
+        log('clear: ' + s);
+
+        first_letter = s[0][0].toUpperCase();
+        log('First letter: ' + first_letter);
+
+        middle = s[0];
+        middle = middle.substring(1, middle.length);
+        middle = middle.substring(0, middle.length - 1);
+        log('Middle: ' + middle);
+
+        name = s[0][s[0].length - 1].toUpperCase();
+        log('name: ' + name);
+
+        second_name = s[1][0].toUpperCase();
+        log('second name: ' + second_name);
+
+        var res = first_letter + middle + ' ' + name + '.' + second_name + '.'
+        
+        $('#Driver').val(res);
+        $('#Driver').addClass('changed');
+        $('#Driver').after(' -- CHANGED');
+    }
+}
 
 function check_consignor (fuel_type) {
     var sel = $('#ConsignorId');
@@ -82,17 +122,26 @@ function check_fuel_quality () {
 function check_ttn (ttn, fuel_type) {
     if (fuel_type == 'zkt') {
         // check ttn
-        var re = /(\d{2})\/(\d{2})-(\d{2})\/(\D{3})-\d+/g;
+        var re = /(\d+)\/(\d+)-(\d+)\/[А-Я]+-(\d+)/g;
         if (re.test(ttn)) {
             $('#DocNo').addClass('ok');
             $('#DocNo').after(' -- OK');
         } else {
-            $('#DocNo').addClass('fail');
-            $('#DocNo').after(' -- FAIL');
+            // try to fix
+            result = ttn.toUpperCase();
+
+            if (re.test(result)) {
+                $('#DocNo').val(result);
+                $('#DocNo').addClass('changed');
+                $('#DocNo').after(' -- CHANGED');
+            } else {
+                $('#DocNo').addClass('fail');
+                $('#DocNo').after(' -- FAIL');
+            }
         }
     } else if (fuel_type == 'tkt') {
         // check ttn
-        var re = /\D{2}-\d+/g;
+        var re = /[А-Я]+-\d+/g;
         if (re.test(ttn)) {
             $('#DocNo').addClass('ok');
             $('#DocNo').after(' -- OK');
@@ -101,6 +150,8 @@ function check_ttn (ttn, fuel_type) {
             n = ttn.match(/\d+$/)[0];
             var result = '';
             result = ttn[0] + ttn[1] + '-' + n;
+            result = result.toUpperCase();
+
             $('#DocNo').val(result);
             $('#DocNo').addClass('changed');
             $('#DocNo').after(' -- CHANGED')
